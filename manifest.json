@@ -45,7 +45,7 @@
   "short_name": "LifeRestart",
   "orientation": "portrait",
   "display": "standalone",
-  "start_url": "/view/index.html",
+  "start_url": "./index.html",
   "description": "人生重开模拟器",
   "background_color": "#ffffff"
 }
