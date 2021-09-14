@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         directory: path.join(__dirname, 'view'),
-        publicPath: '/view',
+        publicPath: '/',
       },
       {
         directory: path.join(__dirname, 'src'),
