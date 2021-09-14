@@ -1,4 +1,5 @@
 import App from '../src/app.js';
+import { getAction } from './request.js';
 
 globalThis.$$eventMap = new Map();
 globalThis.$$event = (tag, data) => {
@@ -18,7 +19,8 @@ globalThis.$$off = (tag, fn) => {
     if(listener) listener.delete(fn);
 }
 
-globalThis.json = async fileName => await (await fetch(`/data/${fileName}.json`)).json();
+// globalThis.json = async fileName => await (await fetch(`../data/${fileName}.json`)).json();
+globalThis.json = async fileName => (await getAction(`../data/${fileName}.json`)).data;
 
 // Pssst, I've created a github package - https://github.com/brookesb91/dismissible
 globalThis.hideBanners = (e) => {
