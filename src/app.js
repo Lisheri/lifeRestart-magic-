@@ -11,7 +11,7 @@ class App{
     #pages;
     #currentPage;
     #talentSelected = new Set();
-    #totalMax=20;
+    #totalMax=40;
     #isEnd = false;
     #selectedExtendTalent = null;
     #hintTimeout;
@@ -156,7 +156,14 @@ class App{
             .click(()=>{
                 talentPage.find('#random').hide();
                 const ul = talentPage.find('#talents');
-                this.#life.talentRandom()
+                const x = [
+                  // {grade: 3, name: '神秘的小盒子', description: '100岁时才能开启', id: 1048},
+                  {id: 1137, name: "千秋万代丸", description: "某条件下所有属性+10000", grade: 1},
+                  {id: 1141, name: '阴间大会员', description: '随机属性+8', grade: 3},
+                  {id: 1134, name: '转世重修', description: '渡劫失败重生', grade: 2},
+                  {id: 9999, name: '仙帝转世', description: '所有属性+10000', grade: 3}
+                ]
+                this.#life.talentRandom().concat(x)
                     .forEach(talent=>{
                         const li = createTalent(talent);
                         ul.append(li);
@@ -164,12 +171,12 @@ class App{
                             if(li.hasClass('selected')) {
                                 li.removeClass('selected')
                                 this.#talentSelected.delete(talent);
-                                if(this.#talentSelected.size<3) {
-                                    talentPage.find('#next').text('请选择3个')
+                                if(this.#talentSelected.size<5) {
+                                    talentPage.find('#next').text('请选择5个')
                                 }
                             } else {
-                                if(this.#talentSelected.size==3) {
-                                    this.hint('只能选3个天赋');
+                                if(this.#talentSelected.size==5) {
+                                    this.hint('只能选5个天赋');
                                     return;
                                 }
 
@@ -188,7 +195,7 @@ class App{
                                 }
                                 li.addClass('selected');
                                 this.#talentSelected.add(talent);
-                                if(this.#talentSelected.size==3) {
+                                if(this.#talentSelected.size==5) {
                                     talentPage.find('#next').text('开始新人生')
                                 }
                             }
@@ -200,12 +207,12 @@ class App{
         talentPage
             .find('#next')
             .click(()=>{
-                if(this.#talentSelected.size!=3) {
-                    this.hint('请选择3个天赋');
+                if(this.#talentSelected.size!=5) {
+                    this.hint('请选择5个天赋');
                     return;
                 }
                 talentPage.find('#next').hide()
-                this.#totalMax = 20 + this.#life.getTalentAllocationAddition(Array.from(this.#talentSelected).map(({id})=>id));
+                this.#totalMax = 40 + this.#life.getTalentAllocationAddition(Array.from(this.#talentSelected).map(({id})=>id));
                 this.switch('property');
             })
 
